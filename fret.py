@@ -102,9 +102,25 @@ class FretTrainer:
         back_text = f"\033[4mB\033[0mack ({back_count})" if back_count > 0 else f"{Fore.WHITE}Back (0){Style.RESET_ALL}"
         next_text = f"\033[4mN\033[0mext ({next_count})" if next_count > 0 else f"{Fore.WHITE}Next (0){Style.RESET_ALL}"
         
+        # Determine current exercise type for dynamic key bindings
+        current_type = None
+        if self.history_index >= 0 and self.history_index < len(self.history):
+            current_type = self.history[self.history_index]['type']
+        
+        # Dynamic key bindings based on current exercise
+        if current_type == 'location':
+            note_to_fret_text = "Note to Fret Exercise (Z | Space)"
+            fret_to_note_text = "Fret to Note Exercise (X)"
+        elif current_type == 'inverse-location':
+            note_to_fret_text = "Note to Fret Exercise (Z)"
+            fret_to_note_text = "Fret to Note Exercise (X | Space)"
+        else:
+            note_to_fret_text = "Note to Fret Exercise (Z)"
+            fret_to_note_text = "Fret to Note Exercise (X)"
+        
         print(f"\n{back_text} | {next_text}")
-        print(f"Note to Fret Exercise (Z)")
-        print(f"Fret to Note Exercise (X)")
+        print(f"{note_to_fret_text}")
+        print(f"{fret_to_note_text}")
         print(f"Exit (Ctrl+C)")
         print()
     
@@ -162,6 +178,15 @@ class FretTrainer:
         line += "|"
         print(line)
     
+    def generate_new_same_type(self):
+        """Generate a new exercise of the same type as current"""
+        if self.history_index >= 0 and self.history_index < len(self.history):
+            current_exercise = self.history[self.history_index]
+            if current_exercise['type'] == 'location':
+                self.note_to_fret_exercise()
+            else:  # inverse-location
+                self.fret_to_note_exercise()
+    
     def run(self):
         """Main application loop"""
         try:
@@ -176,6 +201,8 @@ class FretTrainer:
                     self.note_to_fret_exercise()      
                 elif key.lower() == 'x':
                     self.fret_to_note_exercise()
+                elif key == ' ':  # Space key
+                    self.generate_new_same_type()
                 elif key.lower() == 'b' or key == '\033[D':  # B key or left arrow
                     if self.navigate_history(-1):
                         self.show_current_exercise()
