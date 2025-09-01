@@ -90,8 +90,7 @@ class FretTrainer:
                 print(f"\n{Fore.YELLOW}{Style.BRIGHT}{exercise['content']}{Style.RESET_ALL}")
             else:  # inverse-location
                 for i, (string_name, fret_pos) in enumerate(exercise['content']):
-                    self.draw_string_fretboard(string_name, fret_pos, i+1)
-            
+                    self.draw_string_fretboard(fret_pos, i+1)
             self.show_navigation()
     
     def show_navigation(self):
@@ -154,12 +153,12 @@ class FretTrainer:
         # Display the fretboard for each string
         self.clear_screen()
         for i, (string_name, fret_pos) in enumerate(current_exercise['content']):
-            self.draw_string_fretboard(string_name, fret_pos, i+1)
+            self.draw_string_fretboard(fret_pos, i+1)
         self.show_navigation()
     
-    def draw_string_fretboard(self, string_name, target_fret, string_number):
+    def draw_string_fretboard(self, target_fret, string_number):
         """Draw a single string's fretboard with highlighted position"""
-        line = f"{string_name} "
+        line = f"{string_number} "
         
         for fret in range(1, 13):  # 1-12 frets (skip open string)
             if fret == target_fret:
