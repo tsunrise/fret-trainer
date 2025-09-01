@@ -12,6 +12,21 @@ class FretTrainer:
     def __init__(self):
         self.notes = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
         self.strings = ['E', 'A', 'D', 'G', 'B', 'E'][::-1]  # Standard tuning (high to low)
+    
+    def enter_alternate_screen(self):
+        """Enter alternate screen buffer"""
+        print("\033[?1049h", end="")
+        sys.stdout.flush()
+    
+    def exit_alternate_screen(self):
+        """Exit alternate screen buffer"""
+        print("\033[?1049l", end="")
+        sys.stdout.flush()
+    
+    def clear_screen(self):
+        """Clear the current screen"""
+        print("\033[2J\033[H", end="")
+        sys.stdout.flush()
 
     def get_single_key(self):
         """Get a single key press without pressing Enter"""
@@ -25,6 +40,7 @@ class FretTrainer:
         return key
     
     def show_welcome(self):
+        self.clear_screen()
         print("\n" + "="*50)
         print("🎸 GUITAR FRET TRAINER 🎸")
         print("="*50)
@@ -37,7 +53,7 @@ class FretTrainer:
     
     def location_exercise(self):
         """Generate random sequence of 7 unique notes"""
-        os.system('clear' if os.name == 'posix' else 'cls')
+        self.clear_screen()
         
         shuffled_notes = self.notes.copy()
         random.shuffle(shuffled_notes)
@@ -47,7 +63,7 @@ class FretTrainer:
     
     def inverse_location_exercise(self):
         """Generate fret positions on 6 strings with visualization"""
-        os.system('clear' if os.name == 'posix' else 'cls')
+        self.clear_screen()
         
         # Generate random fret positions for each string (1-12 frets)
         fret_positions = [random.randint(1, 12) for _ in range(6)]
@@ -80,6 +96,7 @@ class FretTrainer:
     def run(self):
         """Main application loop"""
         try:
+            self.enter_alternate_screen()
             self.show_welcome()
             
             while True:
@@ -93,8 +110,9 @@ class FretTrainer:
                     break
         
         except KeyboardInterrupt:
-            print(f"\n\n{Fore.YELLOW}Thanks for using Guitar Fret Trainer! Keep practicing! 🎸{Style.RESET_ALL}")
-            sys.exit(0)
+            pass
+        finally:
+            self.exit_alternate_screen()
 
 def main():
     trainer = FretTrainer()
