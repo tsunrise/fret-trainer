@@ -8,6 +8,7 @@ I'm using it for my daily exercises and find it useful.
 
 - Python 3.8 or higher
 - colorama
+- Linux or MacOS (The tool requires `termios` at this time, which is not supported by Windows). 
 
 ## Installation
 
