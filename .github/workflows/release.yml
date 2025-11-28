@@ -7,19 +7,10 @@ on:
 
 jobs:
   build:
-    name: Build on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Build package
+    runs-on: ubuntu-latest
     permissions:
       contents: read
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            platform: linux-x64
-          - os: windows-latest
-            platform: windows-x64
-          - os: macos-latest
-            platform: macos-arm64
     steps:
       - uses: actions/checkout@v4
 
@@ -37,7 +28,7 @@ jobs:
       - name: Upload dist artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: dist-${{ matrix.platform }}
+          name: dist
           path: dist/*
 
   publish:
@@ -49,11 +40,10 @@ jobs:
       id-token: write
       contents: read
     steps:
-      # Download artifacts from Linux build (all platforms produce identical pure Python wheels)
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: dist-linux-x64
+          name: dist
           path: dist/
 
       - name: Publish to PyPI
