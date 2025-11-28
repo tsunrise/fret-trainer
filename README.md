@@ -1,6 +1,8 @@
-# Guitar Fret Trainer
+# Guitar Fret Trainer 🎸
 
-A CLI application in Python that helps users learn guitar fret positions.
+A simple CLI tool for help you memorize guitar fret positions. 
+
+I'm using it for my daily exercises and find it useful. 
 
 ## Requirements
 
