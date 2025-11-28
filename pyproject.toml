@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fret-training"
+version = "0.1.0"
+description = "A CLI application to help users learn guitar fret positions"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Topic :: Education",
+]
+dependencies = [
+    "colorama>=0.4.6",
+]
+
+[project.scripts]
+fret-training = "fret:main"
+
+[project.urls]
+Homepage = "https://github.com/tsunrise/fret-training"
+Repository = "https://github.com/tsunrise/fret-training"
