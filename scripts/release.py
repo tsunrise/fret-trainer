@@ -65,7 +65,7 @@ def tag_exists(tag_name: str) -> bool:
 
 
 def main() -> None:
-    pyproject_path =  "./pyproject.toml"
+    pyproject_path = Path("pyproject.toml")
 
     if not pyproject_path.exists():
         print("Error: pyproject.toml not found", file=sys.stderr)
