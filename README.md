@@ -14,7 +14,7 @@ I'm using it for my daily exercises and find it useful.
 Install from PyPI:
 
 ```bash
-pip install fret-training
+pip install fret-trainer
 ```
 
 Or install from source:
@@ -55,7 +55,7 @@ The GitHub Actions workflow will automatically publish to PyPI when the tag is p
 Run the trainer:
 
 ```bash
-fret-training
+fret-trainer
 ```
 
 Or run directly:
